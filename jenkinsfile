@@ -18,6 +18,9 @@ pipeline {
                 //sh 'pip freeze'
                 sh 'google-chrome --version'
                 sh 'chromedriver -v'
+                sh 'sudo apt update'
+                sh 'sudo apt install python-pip'
+                sh 'pip -V'
             }
         }
         stage('Run tests') {
