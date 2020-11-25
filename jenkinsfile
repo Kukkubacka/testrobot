@@ -12,16 +12,16 @@ pipeline {
         }
         stage('Version Check') {
             steps {
-                sh 'whoami'
+                //sh 'whoami'
                 sh 'ls -al'
                 sh 'python -V'
                 //sh 'pip -V'
                 //sh 'pip freeze'
                 sh 'google-chrome --version'
                 sh 'chromedriver -v'
-                sh 'apt update'
-                sh 'apt install python-pip'
-                sh 'pip -V'
+                //sh 'apt update'
+                //sh 'apt install python-pip'
+                //sh 'pip -V'
             }
         }
         stage('Run tests') {
