@@ -13,6 +13,11 @@ pipeline {
         stage('Version Check') {
             steps {
                 sh 'ls -al'
+                sh 'python -V'
+                sh 'pip -V'
+                sh 'pip freeze'
+                sh 'google-chrome --version'
+                sh 'chromedriver -v'
             }
         }
         stage('Run tests') {
