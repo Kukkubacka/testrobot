@@ -1,0 +1,42 @@
+pipeline {
+    agent { 
+        dockerfile {
+            dir   './'
+            label 'any'
+        }
+    }
+
+    parameters {
+        string(
+            defaultValue: 'dev',
+            description: 'Environment (dev, qa, prod)',
+            name: 'ENV',
+            trim: false
+        )
+        string(
+            defaultValue: 'gc',
+            description: 'Browser (gc, ff)',
+            name: 'BROWSER',
+            trim: false
+        )
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Version Check') {
+            steps {
+                sh 'ls -al'
+            }
+        }
+        stage('Run tests') {
+            steps {
+                echo "At Build on "
+                sh 'robot -N "" -d reports -v ENV:"${ENV}" -v BROWSER:"${BROWSER}" -e norun tests/testrobot.robot'
+            }
+        }
+    }
+}
