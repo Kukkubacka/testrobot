@@ -9,7 +9,7 @@ pipeline {
             description: 'Environment (dev, qa, prod)',
             name: 'ENV',
             trim: false
-        )
+        ),
         string(
             defaultValue: 'gc',
             description: 'Browser (gc, ff)',
@@ -35,4 +35,5 @@ pipeline {
                 sh 'robot -N "" -d reports -v ENV:"${ENV}" -v BROWSER:"${BROWSER}" -e norun tests/testrobot.robot'
             }
         }
+   }
 }
