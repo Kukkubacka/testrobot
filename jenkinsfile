@@ -35,5 +35,4 @@ pipeline {
                 sh 'robot -N "" -d reports -v ENV:"${ENV}" -v BROWSER:"${BROWSER}" -e norun tests/testrobot.robot'
             }
         }
-    }
 }
