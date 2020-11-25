@@ -14,8 +14,8 @@ pipeline {
             steps {
                 sh 'ls -al'
                 sh 'python -V'
-                sh 'pip -V'
-                sh 'pip freeze'
+                //sh 'pip -V'
+                //sh 'pip freeze'
                 sh 'google-chrome --version'
                 sh 'chromedriver -v'
             }
