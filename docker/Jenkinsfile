@@ -17,7 +17,7 @@ pipeline {
             steps {
                 sh 'ls -al'
                 sh 'ls -al /project'
-                sh 'ls -al /usr/bin/py*'
+                //sh 'ls -al /usr/bin/py*'
                 sh 'python -V'
                 //sh 'pip -V'
                 //sh 'pip freeze'
