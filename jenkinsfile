@@ -14,6 +14,7 @@ pipeline {
             steps {
                 //sh 'whoami'
                 sh 'ls -al'
+                sh 'ls -al /usr/bin/py*'
                 sh 'python -V'
                 //sh 'pip -V'
                 //sh 'pip freeze'
