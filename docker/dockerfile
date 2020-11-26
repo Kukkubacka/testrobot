@@ -16,7 +16,7 @@ RUN apt update && apt install python-pip \
 # xfvb
 #RUN apt-get install -y xvfb
 
-# Jenkins User ???
+# Jenkins User ????
 
 COPY ./docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod a+x /usr/local/bin/entrypoint.sh
