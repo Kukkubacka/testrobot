@@ -28,6 +28,7 @@ pipeline {
         stage('Run tests') {
             steps {
                 echo "At Build on "
+                echo "Choice parameter: ${BROWSER}" 
                 //sh 'robot -N "" -d reports -v ENV:"${ENV}" -v BROWSER:"${BROWSER}" -e norun tests/testrobot.robot'
             }
         }
