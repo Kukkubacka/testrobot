@@ -1,4 +1,5 @@
-from selenium/standalone-chrome:87.0
+#from selenium/standalone-chrome:87.0
+from alpine
 
 RUN ls -al
 
