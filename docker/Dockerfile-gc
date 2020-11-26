@@ -2,6 +2,7 @@
 from alpine
 
 RUN ls -al
+RUN ls -al /home
 
 # python --> python3 linkki
 RUN sudo rm /usr/bin/python \
