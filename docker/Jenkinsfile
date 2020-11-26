@@ -15,14 +15,15 @@ pipeline {
         }
         stage('Version Check') {
             steps {
+                sh 'pwd'
                 sh 'ls -al'
                 sh 'ls -al /project'
                 //sh 'ls -al /usr/bin/py*'
                 //sh 'python -V'
                 //sh 'pip -V'
                 //sh 'pip freeze'
-                sh 'google-chrome --version'
-                sh 'chromedriver -v'
+                //sh 'google-chrome --version'
+                //sh 'chromedriver -v'
             }
         }
         stage('Run tests') {
