@@ -3,8 +3,10 @@ from alpine
 
 WORKDIR /project
 
+RUN ls -al /project
+
 RUN pwd
-RUN ls -al && ls -al /home && ls -al /root
+RUN ls -al / && ls -al /home && ls -al /root
 
 # python --> python3 linkki
 RUN sudo rm /usr/bin/python \
