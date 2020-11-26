@@ -1,7 +1,7 @@
 #from selenium/standalone-chrome:87.0
 from alpine
 
-WORKDIR /project
+#WORKDIR /project
 
 RUN ls -al /project
 
@@ -13,12 +13,12 @@ RUN ls -al / && ls -al /home && ls -al /root
 #&& sudo ln -s /usr/bin/python3 /usr/bin/python
 
 
-#COPY requirements.txt /project/requirements.txt
+COPY requirements.txt /project/requirements.txt
 #COPY ./docker/requirements.txt /project/requirements.txt  -->  fail
 #COPY docker/requirements.txt /project/requirements.txt  -->  fail
 
 #ADD ./docker/requirements.txt /project/requirements.txt   -->   fail
-ADD ./testrobot/docker/requirements.txt /project/requirements.txt
+ADD ./testrobot/docker/requirements.txt /project/requirements.txt   -->  fail
 
 #RUN apt update && apt install python-pip \
 #&&  pip install --upgrade pip \
