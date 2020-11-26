@@ -1,0 +1,8 @@
+# Requirements needed when running tests
+requests
+robotframework
+robotframework-requests
+robotframework-faker
+robotframework-seleniumlibrary
+
+

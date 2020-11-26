@@ -1,0 +1,38 @@
+pipeline {
+    agent { 
+        dockerfile {
+            dir   './docker'
+        }
+    }
+
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Version Check') {
+            steps {
+                //sh 'whoami'
+                sh 'ls -al'
+                sh 'ls -al /usr/bin/py*'
+                sh 'python -V'
+                //sh 'pip -V'
+                //sh 'pip freeze'
+                sh 'google-chrome --version'
+                sh 'chromedriver -v'
+                //sh 'apt update'
+                //sh 'apt install python-pip'
+                //sh 'pip -V'
+            }
+        }
+        stage('Run tests') {
+            steps {
+                echo "At Build on "
+                echo "Choice parameter: ${BROWSER}" 
+                //sh 'robot -N "" -d reports -v ENV:"${ENV}" -v BROWSER:"${BROWSER}" -e norun tests/testrobot.robot'
+            }
+        }
+   }
+}
