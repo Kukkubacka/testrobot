@@ -13,6 +13,7 @@ pipeline {
         stage('Version Check') {
             steps {
                 //sh 'whoami'
+                sh 'pwd'
                 sh 'ls -al'
                 sh 'ls -al /usr/bin/py*'
                 sh 'python -V'
