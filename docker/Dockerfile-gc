@@ -3,7 +3,6 @@ from alpine
 
 RUN pwd
 RUN ls -al && ls -al /home && ls -al /root
-RUN tree
 
 # python --> python3 linkki
 RUN sudo rm /usr/bin/python \
