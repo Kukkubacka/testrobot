@@ -1,6 +1,8 @@
 #from selenium/standalone-chrome:87.0
 from alpine
 
+WORKDIR /project
+
 RUN pwd
 RUN ls -al && ls -al /home && ls -al /root
 
