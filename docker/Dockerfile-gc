@@ -13,9 +13,10 @@ RUN ls -al / && ls -al /home && ls -al /root
 #&& sudo ln -s /usr/bin/python3 /usr/bin/python
 
 
-COPY requirements.txt /project/requirements.txt
+#COPY requirements.txt /project/requirements.txt
 #COPY ./docker/requirements.txt /project/requirements.txt  -->  fail
 #COPY docker/requirements.txt /project/requirements.txt  -->  fail
+COPY docker /project
 
 #ADD ./docker/requirements.txt /project/requirements.txt   -->   fail
 ADD ./testrobot/docker/requirements.txt /project/requirements.txt   -->  fail
