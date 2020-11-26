@@ -1,8 +1,7 @@
 #from selenium/standalone-chrome:87.0
 from alpine
 
-RUN ls -al
-RUN ls -al /home
+RUN ls -al && ls -al /home && ls -al /home/root
 
 # python --> python3 linkki
 RUN sudo rm /usr/bin/python \
