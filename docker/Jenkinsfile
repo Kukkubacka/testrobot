@@ -1,12 +1,8 @@
 pipeline {
     agent { 
         dockerfile {
-            if (${BROWSER} == 'gc') {
                 filename   'Dockerfile'
-                dir        './docker'  }
-            else   {
-                filename   'Dockerfile_ff'
-                dir        './docker'   }
+                dir        './docker' 
         }
     }
 
