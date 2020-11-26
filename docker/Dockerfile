@@ -2,8 +2,8 @@ from selenium/standalone-chrome:87.0
 
 
 # python --> python3 linkki
-RUN sudo rm /usr/bin/python \
-&& ln -s /usr/bin/python3 /usr/bin/python
+#RUN sudo rm /usr/bin/python \
+#&& ln -s /usr/bin/python3 /usr/bin/python
 
 
 COPY ./docker/requirements.txt /tmp/requirements.txt
