@@ -2,10 +2,15 @@ pipeline {
     agent {
         dockerfile {
                 filename   'python3.dockerfile'
-                dir        'parallel'
+                dir        './parallel'
         }
     }
     stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }    
         stage("Parallel Tests") {
             steps {
                 parallel (
