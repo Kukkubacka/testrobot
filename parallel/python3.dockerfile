@@ -1,6 +1,6 @@
 from selenium/standalone-chrome:87.0
 
-ARG polku="./Robot test/verkkopalvelu/"
+ARG polku="./parallel/"
 
 # python --> python3 linkki
 RUN sudo rm /usr/bin/python \
