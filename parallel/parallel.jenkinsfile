@@ -14,11 +14,11 @@ pipeline {
         stage("Parallel Tests") {
             steps {
                 parallel (
-                    "Taskone" : {
+                    "Task-one" : {
                         //do some stuff
                         bat 'dir'
                     },
-                    "Tasktwo" : {
+                    "Task-two" : {
                         // Do some other stuff in parallel
                         bat 'dir'
                     }
