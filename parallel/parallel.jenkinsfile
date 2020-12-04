@@ -1,0 +1,29 @@
+pipeline {
+    agent {
+        dockerfile {
+                filename   'python3.dockerfile'
+                dir        'parallel
+            }
+        }
+    }
+    stages {
+        stage("Parallel Tests") {
+            steps {
+                parallel (
+                    "Taskone" : {
+                        //do some stuff
+                        bat 'dir'
+                    },
+                    "Tasktwo" : {
+                        // Do some other stuff in parallel
+                        bat 'dir'
+                    }
+                )
+            }
+        }
+    }
+}
+
+
+
+
