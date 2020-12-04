@@ -2,7 +2,7 @@ pipeline {
     agent {
         dockerfile {
                 filename   'python3.dockerfile'
-                dir        'parallel
+                dir        'parallel'
             }
         }
     }
