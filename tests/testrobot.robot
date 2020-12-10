@@ -18,12 +18,12 @@ Test Robot
     Log                                 ${ENV}
 
 Test Selenium Headless
-    [Tags]                              web          # norun
+    [Tags]                              web     group1     # norun
     Log                                 Opening wwww page
     Open WWW Page                       ${url}
 
 Test Selenium Headfull
-    [Tags]                              web          # norun
+    [Tags]                              web      group2    # norun
     Log                                 Test Create Web Driver
     Open WWW Page                       ${url}
 
