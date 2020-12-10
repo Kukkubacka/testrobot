@@ -1,0 +1,88 @@
+pipeline {
+    agent { 
+        dockerfile {
+                filename   'vp-gc.dockerfile'
+                dir        './docker' 
+        }
+    }
+    parameters {
+        string(
+            defaultValue: 'reports',
+            description: '',
+            name: 'REPORTDIR',
+            trim: false
+        )
+            string(
+            defaultValue: 'norun',
+            description: 'Exclude test cases by tag',
+            name: 'EXCLUDE',
+            trim: false
+        )
+            choice(
+            choices: ['dev', 'qa'],
+            description: 'Environment selection',
+            name: 'ENV'
+        )  
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+		stage('Version Check') {
+            steps {
+                sh 'pwd'
+                sh 'ls -al'
+                sh 'python -V'
+                 sh 'pip3 -V'
+                sh 'pip3 freeze'
+                //sh 'robot --version'
+                sh 'google-chrome --version'
+                sh 'chromedriver -v'
+            }
+        }
+        stage('Parallel Test Execution') {
+            steps {
+				parallel (
+				   "Group 1" : {
+				      echo "At Build on ${WORKSPACE}"
+				      sh 'ls -al'
+				      sh 'export DISPLAY=:2'
+				      sh 'Xvfb :2 -screen 0 1920x1080x24 &'
+				      //sh 'robot -N "Test Robot" ..'                  
+					  sh 'robot -N "Test para" -d reports …'
+				      echo "END"
+				    },
+				   "group 2" : {
+                        echo "At Build on ${WORKSPACE}"
+                        sh 'ls -al'
+                        sh 'export DISPLAY=:3'
+                        sh 'Xvfb :3 -screen 0 1920x1080x24 &'
+                        //sh 'robot -N "Test Robot" ..'                  
+					    sh 'robot -N "Test Verkkopalvelu" -d reports …'
+                        echo "END"
+                    }
+                )
+            }
+        }
+   }
+    post {
+        always {
+            step (
+                [
+                   $class: 'RobotPublisher',
+                    disableArchiveOutput: false,
+                    logFileName: 'log.html',
+                    otherFiles: '*.png',
+                    outputFileName: 'output.xml',
+                    outputPath: "${REPORTDIR}",
+                    passThreshold: 100,
+                    reportFileName: 'report.html',
+                    unstableThreshold: 0
+                ]
+            )
+            cleanWs()
+        }
+    }   
+}
