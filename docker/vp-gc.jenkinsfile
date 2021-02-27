@@ -3,6 +3,7 @@ pipeline {
         dockerfile {
                 filename   'vp-gc.dockerfile'
                 dir        './docker' 
+                label      'any'
         }
     }
     parameters {
