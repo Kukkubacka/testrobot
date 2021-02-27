@@ -74,12 +74,12 @@ pipeline {
                 )
             }
         }
-	stage('Version Check') {
+	stage('Reporting') {
             steps {
                 sh 'echo rebot combine reports'
             }
         }	
-   }
+   //}
     post {
         always {
             step (
