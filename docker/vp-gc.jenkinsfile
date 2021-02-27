@@ -48,7 +48,7 @@ pipeline {
                 sh 'ls -al'
                 sh 'Xvfb :99 -screen 0 1920x1080x24 && export DISPLAY=:99 &'
                 sleep time: 3, unit: 'SECONDS'
-                sh 'robot -N "Test Robot" -d reports -v ENV:${ENV} -e ${EXCLUDE} docker/testrobot.robot'
+                sh 'robot -N "Test Robot" -d reports -v ENV:${ENV} -e ${EXCLUDE} tests/testrobot.robot'
                 sh 'free -h'
                 sh 'ps -aux'
                 sh 'ls -al reports'
