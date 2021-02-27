@@ -79,7 +79,7 @@ pipeline {
                 sh 'echo rebot combine reports'
             }
         }	
-   //}
+   }
     post {
         always {
             step (
