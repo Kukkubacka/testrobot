@@ -42,7 +42,7 @@ pipeline {
                 checkout scm
             }
         }
-		stage('Version Check') {
+	stage('Version Check') {
             steps {
                 sh 'pwd'
                 sh 'ls -al'
@@ -74,6 +74,11 @@ pipeline {
                 )
             }
         }
+	stage('Version Check') {
+            steps {
+                sh 'echo rebot combine reports'
+            }
+        }	
    }
     post {
         always {
