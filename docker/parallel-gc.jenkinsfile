@@ -79,7 +79,7 @@ pipeline {
                 sh 'echo rebot combine reports'
 		//sh 'rebot -d reports -o output.xml reports/output_1.xml reports/output_2.xml'
 		sh 'rebot -d reports -o output.xml reports/output_*.xml'
-		sh 'rebot -d reports -o log.html reports/log_*.html'
+		sh 'rebot -d reports -l log.html reports/log_*.html'
             }
         }	
    }
