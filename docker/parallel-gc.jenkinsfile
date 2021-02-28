@@ -90,9 +90,9 @@ pipeline {
                 [
                    $class: 'RobotPublisher',
                     disableArchiveOutput: false,
-                    logFileName: 'log*.html',
-                    otherFiles: '*.png',
-                    outputFileName: 'output*.xml',
+                    logFileName: 'log.html',
+                    otherFiles: '*.png, *.html, *.xml',
+                    outputFileName: 'output.xml',
                     outputPath: "${REPORTDIR}",
                     passThreshold: 100,
                     reportFileName: 'report.html',
