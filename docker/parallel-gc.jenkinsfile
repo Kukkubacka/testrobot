@@ -1,8 +1,8 @@
 pipeline {
     agent { 
         dockerfile {
-                filename   'vp-gc.dockerfile'
-                dir        './docker' 
+            filename   'vp-gc.dockerfile'
+            dir        './docker' 
         }
     }
     parameters {
@@ -42,7 +42,7 @@ pipeline {
                 checkout scm
             }
         }
-	stage('Version Check') {
+	    stage('Version Check') {
             steps {
                 sh 'pwd'
                 sh 'ls -al'
@@ -56,31 +56,26 @@ pipeline {
         }
         stage('Parallel Test Execution') {
             steps {
-		parallel (
-			"Group 1" : {
-				echo "At Build on ${WORKSPACE}"
-				sh 'ls -al'
-				//sh 'Xvfb :99 -screen 0 1920x1080x24 && export DISPLAY=:2 &'              
-				sh 'robot -N "Test Robot" -d reports -o output_1.xml -l log_1.html -i ${GROUP1} tests/testrobot.robot'
-				echo "END"
-			},
-			"group 2" : {
-                        	echo "At Build on ${WORKSPACE}"
-                        	sh 'ls -al'
-                        	//sh 'Xvfb :99 -screen 0 1920x1080x24 && export DISPLAY=:2 &'  
-                        	sh 'robot -N "Test Robot" -d reports -o output_2.xml -l log_2.html -i ${GROUP2} tests/testrobot.robot'
-                        	echo "END"
-                    	}
+		        parallel (
+			        "Group 1" : {
+				        echo "At Build on ${WORKSPACE}"
+				        //sh 'ls -al'           
+				        sh 'robot -N "Test Robot" -d reports -o output_1.xml -l log_1.html -i ${GROUP1} tests/testrobot.robot'
+				        echo "END"
+			        },
+			        "group 2" : {
+                        echo "At Build on ${WORKSPACE}"
+                        //sh 'ls -al'
+                        sh 'robot -N "Test Robot" -d reports -o output_2.xml -l log_2.html -i ${GROUP2} tests/testrobot.robot'
+                        echo "END"
+                    }
                 )
             }
         }
-	stage('Reporting') {
+	    stage('Reporting') {
             steps {
                 sh 'echo rebot combine reports'
-		//sh 'rebot -d reports -o output.xml reports/output_1.xml reports/output_2.xml'
-		//sh 'rebot -d reports -o output.xml reports/output_*.xml'
-		//sh 'rebot -d reports -l log.html reports/log_*.html'
-		sh 'rebot -d reports --merge -o output.xml -l log.html -r report.html reports/output_*'
+		        sh 'rebot -d reports --merge -o output.xml -l log.html -r report.html reports/output_*'
             }
         }	
    }
