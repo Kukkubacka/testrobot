@@ -40,23 +40,25 @@ pipeline {
                 sh 'whoami'
             }
         }
-        parallel (
-            "Group 1" : {
-                agent { 
-                    dockerfile {
-                        filename   'vp-gc.dockerfile'
-                        dir        './docker' 
+        stage('Run Tests') {
+            parallel (
+                stage('Group 1') {
+                    agent { 
+                        dockerfile {
+                            filename   'vp-gc.dockerfile'
+                            dir        './docker' 
+                        }
+                    }
+                    steps('checkout') {
+                        checkout scm
+                    }
+                    step('Run Test Cases') {
+				        echo "At Build on ${WORKSPACE}"
+				        //sh 'ls -al'           
+				        sh 'robot -N "Test Robot" -d reports -o output_1.xml -l log_1.html -i ${GROUP1} tests/testrobot.robot'
+				        echo "END"
                     }
                 }
-                stages {
-                    stage('Run Test Cases') {
-                        steps {
-				            echo "At Build on ${WORKSPACE}"
-				            //sh 'ls -al'           
-				            sh 'robot -N "Test Robot" -d reports -o output_1.xml -l log_1.html -i ${GROUP1} tests/testrobot.robot'
-				            echo "END"
-			            }
-                    }
                 post {
                     always {
                         step (
@@ -74,16 +76,17 @@ pipeline {
                         )
                         cleanWs()
                     }
-                }
-            },
-            "Group 2" : {
-                agent { 
-                    dockerfile {
-                        filename   'vp-gc.dockerfile'
-                        dir        './docker' 
+                },
+                stage('Group 2' : {
+                    agent { 
+                        dockerfile {
+                            filename   'vp-gc.dockerfile'
+                            dir        './docker' 
+                        }
                     }
-                }
-                stages {
+                    steps('checkout') {
+                        checkout scm
+                    }
                     stage('Run Test Cases') {
                         steps {
 				            echo "At Build on ${WORKSPACE}"
@@ -110,9 +113,9 @@ pipeline {
                         )
                         cleanWs()
                     }
-                }                
-            }
-        )
+                } 
+            )               
+        }
         stage ('Reporting') {
             step {
                 sh 'echo Combining reports'
