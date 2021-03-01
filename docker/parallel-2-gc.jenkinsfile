@@ -1,0 +1,125 @@
+pipeline {
+    agent none
+    parameters {
+        string(
+            defaultValue: './reports',
+            description: '',
+            name: 'REPORTDIR',
+            trim: false
+        )
+        string(
+            defaultValue: 'group1',
+            description: '',
+            name: 'GROUP1',
+            trim: false
+        )
+        string(
+            defaultValue: 'group2',
+            description: '',
+            name: 'GROUP2',
+            trim: false
+        )
+            string(
+            defaultValue: 'norun',
+            description: 'Exclude test cases by tag',
+            name: 'EXCLUDE',
+            trim: false
+        )
+            choice(
+            choices: ['dev', 'qa'],
+            description: 'Environment selection',
+            name: 'ENV'
+        )  
+    }
+    stages {
+        stage('Pre Conditions') {
+            agent any
+            steps {
+                checkout scm
+                sh 'pwd'
+                sh 'whoami'
+            }
+        }
+        parallel (
+            "Group 1" : {
+                agent { 
+                    dockerfile {
+                        filename   'vp-gc.dockerfile'
+                        dir        './docker' 
+                    }
+                }
+                stages {
+                    stage('Run Test Cases') {
+                        steps {
+				            echo "At Build on ${WORKSPACE}"
+				            //sh 'ls -al'           
+				            sh 'robot -N "Test Robot" -d reports -o output_1.xml -l log_1.html -i ${GROUP1} tests/testrobot.robot'
+				            echo "END"
+			            }
+                    }
+                post {
+                    always {
+                        step (
+                            [
+                                $class: 'RobotPublisher',
+                                disableArchiveOutput: false,
+                                logFileName: 'log_1.html',
+                                otherFiles: '*.png',
+                                outputFileName: 'output_1.xml',
+                                outputPath: "${REPORTDIR}",
+                                passThreshold: 100,
+                                reportFileName: 'report.html',
+                                unstableThreshold: 0
+                            ]
+                        )
+                        cleanWs()
+                    }
+                }
+            },
+            "Group 2" : {
+                agent { 
+                    dockerfile {
+                        filename   'vp-gc.dockerfile'
+                        dir        './docker' 
+                    }
+                }
+                stages {
+                    stage('Run Test Cases') {
+                        steps {
+				            echo "At Build on ${WORKSPACE}"
+				            //sh 'ls -al'           
+				            sh 'robot -N "Test Robot" -d reports -o output_2.xml -l log_2.html -i ${GROUP2} tests/testrobot.robot'
+				            echo "END"
+			            }
+                    }
+                }
+                post {
+                    always {
+                        step (
+                            [
+                                $class: 'RobotPublisher',
+                                disableArchiveOutput: false,
+                                logFileName: 'log_2.html',
+                                otherFiles: '*.png',
+                                outputFileName: 'output_2.xml',
+                                outputPath: "${REPORTDIR}",
+                                passThreshold: 100,
+                                reportFileName: 'report.html',
+                                unstableThreshold: 0
+                            ]
+                        )
+                        cleanWs()
+                    }
+                }                
+            }
+        )
+        stage ('Reporting') {
+            step {
+                sh 'echo Combining reports'
+                sh 'rebot -d reports --merge -o output.xml -l log.html -r report.html reports/output_*'
+            }
+        }
+    }
+}
+
+ 
