@@ -19,7 +19,7 @@ ${url}                                  https://robotframework.org/
 #    Log                                 ${ENV}
 
 Test 1
-    [Tags]                              web     group1     # norun
+    [Tags]                              web     group1      norun
     Log                                 Opening wwww page
     Open WWW Page                       https://robotframework.org/
     Top Command
