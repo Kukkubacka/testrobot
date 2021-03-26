@@ -39,7 +39,8 @@ pipeline {
             steps {
                 sh 'echo parser'
                 when {
-                    TOGGLE "Toggle True"
+                    TOGGLE True
+                    sh 'True'
                 }
             }
         }
