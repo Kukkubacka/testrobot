@@ -38,6 +38,9 @@ pipeline {
         stage('Parser') {
             steps {
                 sh 'echo parser'
+                when {
+                    TOGGLE "Toggle True"
+                }
             }
         }
         stage('Version Check') {
