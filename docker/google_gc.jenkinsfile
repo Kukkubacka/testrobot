@@ -46,6 +46,7 @@ pipeline {
         }
         stage('Version Check') {
             steps {
+                echo 'TOGGLE is  ${TOGGLE}'
                 sh 'pwd'
                 sh 'ls -al'
                 sh 'python -V'
