@@ -36,11 +36,12 @@ pipeline {
             }
         }
         stage('Parser') {
+             when {
+                // Only say hello if a "greeting" is requested
+                expression { params.TOGGLE == 'true' }
+            }
             steps {
-                sh 'echo parser'
-                if(TOGGLE) {
-                    sh 'True'
-                }
+                echo "Hello, bitwiseman!"
             }
         }
         stage('Version Check') {
