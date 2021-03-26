@@ -38,7 +38,8 @@ pipeline {
         stage('Parser') {
              when {
                 // Only say hello if a "greeting" is requested
-                expression { params.TOGGLE == 'true' }
+                //expression { params.TOGGLE == 'true' }
+                expression { ${TOGGLE} == 'true' }
             }
             steps {
                 echo "Hello, bitwiseman!"
