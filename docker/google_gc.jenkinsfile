@@ -38,8 +38,7 @@ pipeline {
         stage('Parser') {
             steps {
                 sh 'echo parser'
-                when {
-                    TOGGLE true
+                if(TOGGLE) {
                     sh 'True'
                 }
             }
